@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react'
 import {Todoprovider} from './Context'
 import { useEffect } from 'react'
@@ -21,7 +22,8 @@ function App() {
   }
 
   const togglecomplete = (id) => {
-    settodos((prev) => prev.map((prevtodo) => prevtodo === id ?{...prevtodo, checked: !prevtodo.checked}: prevtodo))
+    console.log("object");
+    settodos((prev) => prev.map((prevtodo) => prevtodo.id === id ?{...prevtodo, checked: !prevtodo.checked}: prevtodo))
   }
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Usetodo } from "../Context";
 
 function Todoform() {
-    const [todo,settodo] = settodo("")
+    const [todo,settodo] = useState("")
     const {addtodo} = Usetodo()
 
     const add = (e) => {

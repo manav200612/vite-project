@@ -2,36 +2,38 @@ import React from "react";
 import { Usetodo } from "../Context";
 import { useState } from "react";
 
-function Todoitem() {
+function Todoitem({todo}) {
     const [istodoeditable, settodoeditable] = useState(false)
     const [todomsg, settodomsg] = useState(todo.todo)
-    const {updaettodo,deletetodo,togglecomplete} = Usetodo
+    const {updaettodo,deletetodo,togglecomplete} = Usetodo()
     const editTodo = () => {
         updaettodo(todo.id, {...todo, todo: todomsg})
         settodoeditable(false)
     }
 
     const toggleCompleted = () => {
+        console.log("here");
         togglecomplete(todo.id)
     }
+    console.log(todo);
     return ( 
         <div
             className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
-                todo.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
+                todo.checked ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
             }`}
         >
             <input
                 type="checkbox"
                 className="cursor-pointer"
-                checked={todo.completed}
+                checked={todo.checked}
                 onChange={toggleCompleted}
             />
             <input
                 type="text"
                 className={`border outline-none w-full bg-transparent rounded-lg ${
-                    isTodoEditable ? "border-black/10 px-2" : "border-transparent"
-                } ${todo.completed ? "line-through" : ""}`}
-                value={todoMsg}
+                    istodoeditable ? "border-black/10 px-2" : "border-transparent"
+                } ${todo.checked ? "line-through" : ""}`}
+                value={todomsg}
                 onChange={(e) => settodomsg(e.target.value)}
                 readOnly={!istodoeditable}
             />
@@ -43,11 +45,11 @@ function Todoitem() {
 
                     if (istodoeditable) {
                         editTodo();
-                    } else setIsTodoEditable((prev) => !prev);
+                    } else settodoeditable((prev) => !prev);
                 }}
                 disabled={todo.completed}
             >
-                {isTodoEditable ? "📁" : "✏️"}
+                {istodoeditable ? "📁" : "✏️"}
             </button>
             {/* Delete Todo Button */}
             <button
